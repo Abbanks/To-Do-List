@@ -7,7 +7,7 @@ uuidv4()
 
 export const TodoWrapper = () => {
     const [todos, setTodos] = useState([])
- 
+
     const addTodo = todo => {
         setTodos([...todos, {
             id: uuidv4(), task: todo,
@@ -17,7 +17,7 @@ export const TodoWrapper = () => {
 
     const toggleComplete = id => {
         setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo))
-    } 
+    }
 
     const deleteTodo = id => {
         setTodos(todos.filter(todo => todo.id !== id))
@@ -34,16 +34,18 @@ export const TodoWrapper = () => {
         ))
     }
 
+    const sortedTodos = [...todos].sort((a, b) => a.completed - b.completed)
+
     return (
         <div className='p-4 max-w-xl mx-auto bg-indigo-800 rounded shadow'>
             <h1 className='text-3xl font-bold text-center mb-8 text-white'>To Do List</h1>
             <TodoForm addTodo={addTodo} />
             <div className='space-y-4'>
-                {todos.map((todo) => (
+                {sortedTodos.map((todo) => (
                     todo.isEditing ? (
                         <EditTodoForm editTodo={editTask} task={todo} key={todo.id} />
                     ) : (
-                        <Todo  
+                        <Todo
                             task={todo}
                             key={todo.id}
                             toggleComplete={toggleComplete}
