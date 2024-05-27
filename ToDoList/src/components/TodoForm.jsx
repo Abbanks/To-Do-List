@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 
 export const TodoForm = ({ addTodo }) => {
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState("");
 
+   
     const handleSubmit = e => {
         e.preventDefault();
-        addTodo(value);
-        setValue("")
-    }
+        if (value.trim()) {
+            addTodo(value);
+            setValue(""); // Clear the input field
+            
+        }
+    };
 
     return (
         <form className='flex flex-col space-y-2' onSubmit={handleSubmit}>
@@ -22,5 +26,5 @@ export const TodoForm = ({ addTodo }) => {
                 Add Task
             </button>
         </form>
-    )
-}
+    );
+};
